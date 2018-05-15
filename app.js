@@ -1,7 +1,7 @@
 var createError = require('http-errors');
 var express = require('express');
 
-var multer = require('multer');
+//var multer = require('multer');
 
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -11,7 +11,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var qrRouter    = require('./routes/qrcode');
 var vrRouter    = require('./routes/vr');
-
+var crRouter    = require('./routes/carrier');
 var app = express();
 
 // view engine setup
@@ -28,6 +28,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/qrcode', qrRouter);
 app.use('/vr', vrRouter);
+app.use('/carrier', crRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

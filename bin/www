@@ -6,7 +6,7 @@
 
 var app = require('../app');
 var debug = require('debug')('nodeexpressapp:server');
-var http = require('http');
+//var http = require('http');
 
 /**
  * Get port from environment and store in Express.
@@ -19,13 +19,22 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+// Configuration for local HTTPS hosting - For Development Only
+var path = require('path')
+var fs = require('fs')
+var https = require('https')
+var certOptions = {
+    key: fs.readFileSync(path.resolve('../build/cert/server.key')),
+    cert: fs.readFileSync(path.resolve('../build/cert/server.crt'))
+}
+//var server = http.createServer(app);
+var server = https.createServer(certOptions, app).listen(3000)
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
+//server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
