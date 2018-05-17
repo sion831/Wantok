@@ -24,8 +24,8 @@ var path = require('path')
 var fs = require('fs')
 var https = require('https')
 var certOptions = {
-    key: fs.readFileSync(path.resolve('../build/cert/server.key')),
-    cert: fs.readFileSync(path.resolve('../build/cert/server.crt'))
+    key: fs.readFileSync(path.resolve('build/cert/server.key')),
+    cert: fs.readFileSync(path.resolve('build/cert/server.crt'))
 }
 //var server = http.createServer(app);
 var server = https.createServer(certOptions, app).listen(3000)
