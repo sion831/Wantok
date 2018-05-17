@@ -55,6 +55,10 @@
  *   - Enum Mode:
  *     - Constants NUMERIC, ALPHANUMERIC, BYTE, KANJI, ECI
  */
+
+// inserted by cbchoi - 2018.05.17
+var Jimp = require("jimp");
+
 var qrcodegen = new function() {
 	
 	/*---- QR Code symbol class ----*/
@@ -159,19 +163,54 @@ var qrcodegen = new function() {
 		// The canvas will be resized to a width and height of (this.size + border * 2) * scale. The painted image will be purely
 		// black and white with no transparent regions. The scale must be a positive integer, and the border must be a non-negative integer.
 		this.drawCanvas = function(scale, border, canvas) {
-			if (scale <= 0 || border < 0)
-				throw "Value out of range";
-			var width = (size + border * 2) * scale;
-			canvas.width = width;
-			canvas.height = width;
-			var ctx = canvas.getContext("2d");
-			for (var y = -border; y < size + border; y++) {
-				for (var x = -border; x < size + border; x++) {
-					ctx.fillStyle = this.getModule(x, y) ? "#000000" : "#FFFFFF";
-					ctx.fillRect((x + border) * scale, (y + border) * scale, scale, scale);
-				}
-			}
-		};
+            if (scale <= 0 || border < 0)
+                throw "Value out of range";
+            var width = (size + border * 2) * scale;
+            canvas.width = width;
+            canvas.height = width;
+            var ctx = canvas.getContext("2d");
+            for (var y = -border; y < size + border; y++) {
+                for (var x = -border; x < size + border; x++) {
+                    ctx.fillStyle = this.getModule(x, y) ? "#000000" : "#FFFFFF";
+                    ctx.fillRect((x + border) * scale, (y + border) * scale, scale, scale);
+                }
+            }
+        };
+
+        this.drawCanvaswithBrand = function(scale, border, canvas) {
+            if (scale <= 0 || border < 0)
+                throw "Value out of range";
+
+            Jimp.read("https://localhost:3000/images/bilum.png").then(function (image) {
+                // do stuff with the image
+                var width = (size + border * 2) * scale;
+                canvas.width = width + width/2; // QR + Brand
+                canvas.height = width;
+
+                // brand image resizing
+                image.resize(size/2, size/2);
+
+                var ctx = canvas.getContext("2d");
+                for (var y = -border; y < size + border; y++) {
+                    for (var x = -border; x < size + border; x++) {
+                        ctx.fillStyle = this.getModule(x, y) ? "#000000" : "#FFFFFF";
+                        ctx.fillRect((x + border) * scale, (y + border) * scale, scale, scale);
+                    }
+                }
+
+                // Composit Image
+                for (var y = 0 + size/4; y < size - size/4; y++) {
+                    for (var x = size/2 + border + size/4; x < size + border + size/4; x++) {
+                        ctx.fillStyle = image.
+                        ctx.fillRect((x + border) * scale, (y + border) * scale, scale, scale);
+                    }
+                }
+            }).catch(function (err) {
+                // handle an exception
+            });
+
+
+        };
 		
 		// Based on the given number of border modules to add as padding, this returns a
 		// string whose contents represents an SVG XML file that depicts this QR Code symbol.
