@@ -20,12 +20,23 @@ mongoose.connect('mongodb://localhost/wantok');
 
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var trackersRouter = require('./routes/trackers');
 var qrRouter = require('./routes/qrcode');
 var vrRouter = require('./routes/vr');
 var crRouter = require('./routes/carrier');
+
 var app = express();
 
+// param
+app.param('trackid', function (request, response, next, trackid) {
+    request.abc = trackid;
+    return next();
+});
+
+app.param('vid', function (request, response, next, vid) {
+    request.vid = vid;
+    return next();
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -38,10 +49,22 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/trackers', trackersRouter);
 app.use('/qrcode', qrRouter);
 app.use('/vr', vrRouter);
 app.use('/carrier', crRouter);
+
+app.get('/trackers/:trackid', function(request, response, next) {
+    //... Do something with req.user
+    console.log('CALLED ONLY ONCE with', request.abc);
+    return response.render('vr');
+});
+
+app.get('/vr/:vid', function(request, response, next) {
+    //... Do something with req.user
+    console.log('CALLED ONLY ONCE with', request.vid);
+    return response.render('vr', {vid: request.vid});
+});
 
 // [CONFIGURE APP TO USE bodyParser]
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -62,5 +85,6 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
+
 
 module.exports = app;
