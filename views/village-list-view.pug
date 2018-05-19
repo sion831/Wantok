@@ -2,6 +2,7 @@ extends _bootstrap
 append styles
     // Custom styles for this template
     link(href='../css/navbar-static-top.css', rel='stylesheet')
+
 block body
     // Static navbar
     +navbar-static("Project Wantok","navbar")
@@ -16,11 +17,18 @@ block body
             +nav_item("#") Separated link
             +nav_item("#") One more separated link
     .container
-        //Iteration for listing village item
+        +a-btn-primary("/admin/villages/new") Add new village
+        script.
+            function deleteMe (id) {
+                var url = '/admin/villages/' + id;
+                $.ajax({
+                    type: "DELETE",
+                    url: url,
+                    data: id
+                });
+            }
         for item in villageList
             .jumbotron
-                // Village name
-                h3= item.name
-                // Placeholder for village description
+                p= item.name
                 p= item.summary_text
-                a.btn.btn-lg.btn-primary(href='/villages/' + item._id, role='button') Detail »
+                a.btn(class="btn-danger",role="button",onclick="deleteMe('"+ item._id +"');") Delete
