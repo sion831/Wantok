@@ -5,6 +5,8 @@ var villageSchema = new Schema({
     name: String,
     summary_text: String,
     published_date: { type: Date, default: Date.now  },
+    latitude: Number,
+    longitude: Number,
     link: String
 });
 

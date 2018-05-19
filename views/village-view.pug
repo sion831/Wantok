@@ -16,11 +16,9 @@ block body
             +nav_item("#") Separated link
             +nav_item("#") One more separated link
     .container
-        //Iteration for listing village item
-        for item in villageList
-            .jumbotron
-                // Village name
-                h3= item.name
-                // Placeholder for village description
-                p= item.summary_text
-                a.btn.btn-lg.btn-primary(href='/villages/' + item._id, role='button') Detail »
+        .jumbotron
+            h1= village.name
+            p= village.summary_text
+            p= village.latitude
+            p= village.longitude
+            p= village.published_date
