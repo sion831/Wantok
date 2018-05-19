@@ -4,7 +4,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var bodyParser = require('body-parser');
+var multer = require('multer');
+var upload = multer();
 
 // Setup MongoDB
 var mongoose = require('mongoose');
@@ -18,12 +19,15 @@ db.once('open', function () {
 // Construct mongodb connection
 mongoose.connect('mongodb://localhost/wantok');
 
-
 var indexRouter = require('./routes/index');
 var trackersRouter = require('./routes/trackers');
 var qrRouter = require('./routes/qrcode');
 var vrRouter = require('./routes/vr');
 var crRouter = require('./routes/carrier');
+var viRouter = require('./routes/village');
+
+// Admin route
+var adminViRouter = require('./routes/admin-village');
 
 var app = express();
 
@@ -46,6 +50,9 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
+
+// for parsing multipart/form-data
+app.use(upload.array());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
@@ -53,6 +60,8 @@ app.use('/trackers', trackersRouter);
 app.use('/qrcode', qrRouter);
 app.use('/vr', vrRouter);
 app.use('/carrier', crRouter);
+app.use('/villages', viRouter); // Villages router
+app.use('/admin/villages', adminViRouter);// Admin village router
 
 app.get('/trackers/:trackid', function(request, response, next) {
     //... Do something with req.user
@@ -65,10 +74,6 @@ app.get('/vr/:vid', function(request, response, next) {
     console.log('CALLED ONLY ONCE with', request.vid);
     return response.render('vr', {vid: request.vid});
 });
-
-// [CONFIGURE APP TO USE bodyParser]
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -85,6 +90,5 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
-
 
 module.exports = app;

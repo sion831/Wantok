@@ -26,9 +26,9 @@ var https = require('https')
 var certOptions = {
     key: fs.readFileSync(path.resolve('../build/cert/server.key')),
     cert: fs.readFileSync(path.resolve('../build/cert/server.crt'))
-}
+};
 //var server = http.createServer(app);
-var server = https.createServer(certOptions, app).listen(3000)
+var server = https.createServer(certOptions, app).listen(3000);
 
 /**
  * Listen on provided port, on all network interfaces.
