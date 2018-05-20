@@ -3,18 +3,18 @@ extends _bootstrap
 append styles
     // Custom styles for this template
     link(href='../css/navbar-static-top.css', rel='stylesheet')
+    title #{vid}
 block  body
     .container
         // Main component for a primary marketing message or call to action
         .jumbotron
             center
                 h1 Brand Code Generation
-                form(action='#', method='get', onsubmit='return false;')
+                form(action='./qrprocess', method='post')
                     table.noborder(style='width:100%')
                         tbody
                             tr
                                 .image-block
-                                    h3 Hello
                                     img.className#IdName(src="../images/brands/qr_vil_01.png" alt="viliage01 image")
                             tr
                                 td

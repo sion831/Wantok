@@ -19,6 +19,6 @@ block body
         form(action = "/admin/villages/new", method = "POST")
             +input("text","villageName","Village name here","Village name","villageName")
             +input("text","villageDes","Village description here","Village description","villageDes")
-            +input("number","villageLat","Village latitude here (number only)","Village latitude","villageLat")
-            +input("number","villageLong","Village longitude here (number only)","Village longitude","villageLong")
+            +input("text","villageLat","Village latitude here (number only)","Village latitude","villageLat", "any")
+            +input("text","villageLong","Village longitude here (number only)","Village longitude","villageLong", "any")
             +submit("Add")
