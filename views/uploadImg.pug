@@ -1,7 +1,50 @@
-doctype html
-html
-    head
-        title= title
-        #link(rel='stylesheet', href='/stylesheets/style.css')
+extends _bootstrap
+append styles
+    // Custom styles for this template
+    link(href='../../css/navbar-static-top.css', rel='stylesheet')
+block body
+    // Static navbar
+    +navbar-static("Project Wantok","navbar")
+        +nav_item("#","active") Home
+        +nav_item("#") About
+        +nav_item("#") Contact
+        +nav_item_dropdown("#")(label="Dropdown")
+            +nav_item("#") Action
+            +nav_item("#") Another action
+            +nav_item("#") Something else here
+            +nav_divider
+            +nav_item("#") Separated link
+            +nav_item("#") One more separated link
+    .container
+        table
+            tbody
+                tr
+                    video#player(controls='', autoplay='')
+                tr
+                tr
+                    button#capture Capture
+                tr
+                    canvas#snapshot(width='320', height='240')
+
+        script.
+            var player = document.getElementById('player');
+            var snapshotCanvas = document.getElementById('snapshot');
+            var captureButton = document.getElementById('capture');
+            var handleSuccess = function (stream) {
+                // Attach the video stream to the video element and autoplay.
+                player.srcObject = stream;
+            };
+            captureButton.addEventListener('click', function () {
+                var context = snapshot.getContext('2d');
+                // Draw the video frame to the canvas.
+                context.drawImage(player, 0, 0, snapshotCanvas.width,
+                    snapshotCanvas.height);
+            });
+            navigator.mediaDevices.getUserMedia({video: true})
+                .then(handleSuccess);
+
+        form(action = "/cam/image", method = "POST")
+            +submit("Confirm")
+
     body
-        block content
+

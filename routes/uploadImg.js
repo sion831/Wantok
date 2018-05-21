@@ -1,40 +1,61 @@
 var express = require('express');
+var multer = require('multer')
 var router = express.Router();
 
-var imagePath = "public/images"
+/*
+var Storage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, "./images");
+    },
+    filename: function (req, file, callback) {
+        callback(null, file.fieldname + "_" + Date.now() + "_" + file.originalname);
+    }
+});
 
-var upload = function (req, res) {
-    var deferred = Q.defer();
-    var storage = multer.diskStorage({
-        // 서버에 저장할 폴더
-        destination: function (req, file, cb) {
-            cb(null, imagePath);
-        },
+var upload = multer({ storage: Storage }).array("imgUploader", 3); //Field name and max count
 
-        // 서버에 저장할 파일 명
-        filename: function (req, file, cb) {
-            file.uploadedFile = {
-                name: req.params.filename,
-                ext: file.mimetype.split('/')[1]
-            };
-            cb(null, file.uploadedFile.name + '.' + file.uploadedFile.ext);
-        }
-    });
 
-    var upload = multer({ storage: storage }).single('file');
+router.get("/", function (req, res) {
+    //res.sendFile(__dirname + "/index.html");
+    res.render('upload_test');
+});
+
+router.post('/upload', function (req, res) {
+    console.log("Hello");
     upload(req, res, function (err) {
-        if (err) deferred.reject();
-        else deferred.resolve(req.file.uploadedFile);
-    });
-    return deferred.promise;
-};
-
-router.post('/:filename', function(req, res, next) {
-    upload(req, res).then(function (file) {
-        res.json(file);
-    }, function (err) {
-        res.send(500, err);
+        if (err) {
+            return res.end("Something went wrong!");
+        }
+        return res.end("File uploaded sucessfully!.");
     });
 });
+
+router.post('/new', function (req, res) {
+    res.redirect('/admin/villages');
+});
+*/
+
+
+router.post('/upload', function(req, res) {
+    if (!req.files)
+        return res.status(400).send('No files were uploaded.');
+
+    // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+    let sampleFile = req.files.sampleFile;
+
+    // Use the mv() method to place the file somewhere on your server
+    sampleFile.mv('../public/images/filename.jpg', function(err) {
+        if (err)
+            return res.status(500).send(err);
+
+        res.send('File uploaded!');
+    });
+});
+
+router.get("/", function (req, res) {
+    //res.sendFile(__dirname + "/index.html");
+    res.render('upload_test');
+});
+
 
 module.exports = router;

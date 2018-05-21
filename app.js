@@ -4,8 +4,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var multer = require('multer');
-var upload = multer();
+//var multer = require('multer');
+//var upload = multer();
 
 // Setup MongoDB
 var mongoose = require('mongoose');
@@ -20,22 +20,36 @@ db.once('open', function () {
 mongoose.connect('mongodb://localhost/wantok');
 
 var indexRouter = require('./routes/index');
-var trackersRouter = require('./routes/trackers');
+var trRouter = require('./routes/trackers');
 var qrRouter = require('./routes/qrcode');
 var vrRouter = require('./routes/vr');
 var crRouter = require('./routes/carrier');
 var viRouter = require('./routes/village');
+var cmRouter = require('./routes/cam');
+
 
 // Admin route
 var adminViRouter = require('./routes/admin-village');
 
 var app = express();
 
+// Body-parser
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
+
+// File Upload
+const fileUpload = require('express-fileupload');
+// default options
+app.use(fileUpload());
+//app.use(bodyParser.urlencoded());
 // param
+/*
 app.param('trackid', function (request, response, next, trackid) {
     request.abc = trackid;
     return next();
 });
+*/
 
 app.param('vid', function (request, response, next, vid) {
     request.vid = vid;
@@ -52,22 +66,20 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 
 // for parsing multipart/form-data
-app.use(upload.array());
+//app.use(upload.array());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/trackers', trackersRouter);
+app.use('/trackers', trRouter);
 app.use('/qrcode', qrRouter);
 app.use('/vr', vrRouter);
 app.use('/carrier', crRouter);
 app.use('/villages', viRouter); // Villages router
 app.use('/admin/villages', adminViRouter);// Admin village router
+app.use('/cam', cmRouter);
 
-app.get('/trackers/:trackid', function(request, response, next) {
-    //... Do something with req.user
-    console.log('CALLED ONLY ONCE with', request.abc);
-    return response.render('vr');
-});
+var testRouter = require('./routes/uploadImg');
+app.use('/test', testRouter);
 
 app.get('/vr/:vid', function(request, response, next) {
     //... Do something with req.user
