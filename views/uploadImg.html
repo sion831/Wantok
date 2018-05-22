@@ -10,6 +10,7 @@ captureButton.addEventListener('click', function () {
     // Draw the video frame to the canvas.
     context.drawImage(player, 0, 0, snapshotCanvas.width,
         snapshotCanvas.height);
+    $.post('/cam/image', {img: context.toDataURL()});
 });
 navigator.mediaDevices.getUserMedia({video: true})
     .then(handleSuccess);

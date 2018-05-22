@@ -10,14 +10,16 @@ block  body
         .jumbotron
             center
                 h1 Brand Code Generation
-                form(action='./qrprocess', method='post')
-                    table.noborder(style='width:100%')
-                        tbody
-                            tr
-                                .image-block
-                                    img.className#IdName(src="../images/brands/qr_vil_01.png" alt="viliage01 image")
-                            tr
-                                td
-                                    strong QR Code:
-                                td
+                table.noborder(style='width:100%')
+                    tbody
+                        tr
+                            .image-block
+                                img.className#IdName(src="../images/brands/qr_vil_01.png" alt="viliage01 image")
+                        tr
+                            td
+                                form#uploadForm(ref='uploadForm', action='qrcode/update', method='post', enctype='multipart/form-data')
+                                    input(type='file', name='sampleFile')
+                                    input(type='submit')
+                            td
+
 

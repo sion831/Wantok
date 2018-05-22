@@ -22,6 +22,7 @@ router.post('/new', function (req, res) {
     village.summary_text = body.villageDes;
     village.latitude = body.villageLat;
     village.longitude = body.villageLong;
+    village.brand_image = body.villageBrand;
 
     village.save(function (err) {
         if (err) {
