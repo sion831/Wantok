@@ -1,9 +1,15 @@
-doctype html
-html
-    head
-        title Instascan
-        script(type='text/javascript', src='javascripts/instascan.min.js')
-    body
+extends _bootstrap
+append styles
+    // Custom styles for this template
+    link(href='../css/navbar-static-top.css', rel='stylesheet')
+    script(type='text/javascript', src='javascripts/instascan.min.js')
+block body
+    +navbar-static("Project Wantok","navbar")
+        +nav_item("https://localhost:3000","active") Home
+        +nav_item("https://localhost:3000") Tourist
+        +nav_item("https://localhost:3000/carrier") Carrier
+        +nav_item_dropdown("#")(label="Dropdown")
+            +nav_item("https://localhost:3000/admin/villages") Admin
         center
             video#preview
             script(type='text/javascript').
