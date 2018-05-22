@@ -59,7 +59,7 @@ def qr_embed_image(qrcode, embed, output, image_size):
         image.save(output, "PNG")
 
 
-qr = QrCode.encode_text('https://192.168.0.2:3000/trackers/2018052200001', QrCode.Ecc.HIGH)
+qr = QrCode.encode_text('https://localhost:3000/trackers/2018052200001', QrCode.Ecc.HIGH)
 
 embed_image = Image.open('../public/images/filename.jpg')
 qr_embed_image(qr, embed_image, '../public/images/brands/qr_vil_01.png', 250)

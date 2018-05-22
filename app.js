@@ -79,11 +79,7 @@ app.use('/cam', cmRouter);
 var testRouter = require('./routes/uploadImg');
 app.use('/test', testRouter);
 
-app.get('/vr/:vid', function(request, response, next) {
-    //... Do something with req.user
-    console.log('CALLED ONLY ONCE with', request.vid);
-    return response.render('vr', {vid: request.vid});
-});
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

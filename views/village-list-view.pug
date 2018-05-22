@@ -26,4 +26,5 @@ block body
             .jumbotron
                 p= item.name
                 p= item.summary_text
+                a.btn.btn-primary(href='/modify/' + item._id, role='button') Modify »
                 a.btn(class="btn-danger",role="button",onclick="deleteMe('"+ item._id +"');") Delete

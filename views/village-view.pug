@@ -15,6 +15,6 @@ block body
             center
                 img.img-rounded(src=''+ village.brand_image,"brand image", width=250, height=250)
             p= village.summary_text
-            p= village.latitude
-            p= village.longitude
+            p= 'Location: (' + village.latitude + ', ' + village.longitude +')'
             p= village.published_date
+            a.btn.btn-lg.btn-primary(href='/vr/' + village._id, role='button') VR Tour »

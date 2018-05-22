@@ -22,7 +22,7 @@ router.post('/new', function (req, res) {
     village.summary_text = body.villageDes;
     village.latitude = body.villageLat;
     village.longitude = body.villageLong;
-    village.brand_image = body.villageBrand;
+    village.brand_image = '/images/villages/default_community.png'
 
     village.save(function (err) {
         if (err) {
@@ -49,6 +49,18 @@ router.delete('/:id', function (req, res) {
 
         res.end();
     })
+});
+
+router.get('/modify', function (req, res) {
+    Village.findOne({_id: req.body._id}, function (err, village) {
+        if (err) return res.status(500).json({ error: err });
+        if (!village) return res.status(404).json({ error: 'village not found' });
+        //res.render('village-view', { village: village })
+    })
+});
+
+router.get('/:id', function (req, res) {
+
 });
 
 module.exports = router;
