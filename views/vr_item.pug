@@ -15,20 +15,18 @@ html
             a-assets
                 //img#korean(crossorigin='anonymous', src='https://172.27.96.7:3000/images/360/korean_community.jpg')
                 //img#korean-thumb(crossorigin='anonymous', src='https://172.27.96.7:3000/images/360/korean_thumb.png')
-                img#jungle(crossorigin='anonymous', src='https://172.27.96.7:3000/images/360/jungle_community.png')
-                img#jungle-thumb(crossorigin='anonymous', src='https://172.27.96.7:3000/images/360/jungle_thumb.png')
-                img#grandpapua(crossorigin='anonymous', src='https://172.27.96.7:3000/images/360/grandpapua_community.jpg')
-                img#grandpapua-thumb(crossorigin='anonymous', src='https://172.27.96.7:3000/images/360/grandpapua_thumb.png')
-                // Image link template to be reused.
+                for item in vrlist
+                    img(id = item._id, crossorigin='anonymous', src=item.image_file)
+                    img(id = item._id + "-thumb", crossorigin='anonymous', src=item.thumb_file)
+
                 script#link(type='text/html')
                      a-entity.link(geometry='primitive: plane; height: 1; width: 1', material='shader: flat; src: ${thumb}', event-set__1='_event: mousedown; scale: 1 1 1', event-set__2='_event: mouseup; scale: 1.2 1.2 1', event-set__3='_event: mouseenter; scale: 1.2 1.2 1', event-set__4='_event: mouseleave; scale: 1 1 1', set-image='on: click; target: #image-360; src: ${src}')
             // 360-degree image.
             a-sky#image-360(radius='10', src='#jungle')
             // Image links.
             a-entity#links(layout='type: line; margin: 1.5', position='0 -1 -4')
-                //a-entity(template='src: #link', data-src='#korean', data-thumb='#korean-thumb')
-                a-entity(template='src: #link', data-src='#jungle', data-thumb='#jungle-thumb')
-                a-entity(template='src: #link', data-src='#grandpapua', data-thumb='#grandpapua-thumb')
+                for item in vrlist
+                    a-entity(template='src: #link', data-src='#'+ item._id, data-thumb='#'+ item._id +'-thumb')
             // Camera + cursor.
             a-entity(camera='', look-controls='')
                 a-cursor#cursor(animation__click='property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150', animation__fusing='property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500', event-set__1='_event: mouseenter; color: springgreen', event-set__2='_event: mouseleave; color: black', fuse='true', raycaster='objects: .link')

@@ -1,0 +1,21 @@
+extends _bootstrap
+append styles
+    // Custom styles for this template
+    link(href='https://172.27.96.7:3000/css/navbar-static-top.css', rel='stylesheet')
+block body
+    // Static navbar
+    +navbar-static("Project Wantok","navbar")
+        +nav_item("https://172.27.96.7:3000","active") Home
+        +nav_item("https://172.27.96.7:3000") Tourist
+        +nav_item("https://172.27.96.7:3000/carrier") Carrier
+        +nav_item_dropdown("#")(label="Dropdown")
+            +nav_item("https://172.27.96.7:3000/admin/villages") Admin
+    .container
+        form(action = "/admin/villages/add_item", method = "POST", enctype='multipart/form-data')
+            .form-groupvid
+                label(for='vid') Community ID
+                input#vid.form-control(type='text', placeholder='Community ID', value=community_id, name='vrid', readonly='')
+            +input("text","SceneName","Scene Name","SceneName","SceneName")
+            +input("file","VRImage","Virtual Reality Image","Virtual Reality Image","VRImage")
+            +input("file","VRThumb","Thumbnail Image","Thumbnail Image","VRThumb")
+            +submit("Add")

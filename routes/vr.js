@@ -1,15 +1,20 @@
 var express = require('express');
 var router = express.Router();
+var VRItem = require('../models/virtual_reality');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-    res.render('vr', { title: 'Express' });
-});
+//router.get('/', function(req, res, next) {
+//    res.render('vr', { title: 'Express' });
+//});
 
-router.get('/:vid', function(request, response, next) {
-    //... Do something with req.user
-    console.log('CALLED ONLY ONCE with', request.vid);
-    return response.render('vr', {vid: request.vid});
+router.get('/:vid', function(req, res) {
+
+    VRItem.find({community_id: req.params.vid}, function (err, vritem) {
+        if (err) return res.status(500).json({ error: err });
+        if (!vritem) return res.status(404).json({ error: 'vritem not found' });
+        return res.render('vr_item', { vrlist: vritem });
+    })
+    //return res.render('vr');
 });
 
 module.exports = router;
