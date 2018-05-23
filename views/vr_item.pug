@@ -4,17 +4,17 @@ html
         meta(charset='utf-8')
         meta(name='description', content='Virtual Tours')
         //script(src='https://aframe.io/releases/0.8.0/aframe.min.js')
-        script(src='https://172.27.96.7:3000/javascripts/aframe.min.js')
-        script(src='https://172.27.96.7:3000/javascripts/aframe-animation-component.js')
-        script(src='https://172.27.96.7:3000/javascripts/aframe-event-set-component.js')
-        script(src='https://172.27.96.7:3000/javascripts/aframe-layout-component.js')
-        script(src='https://172.27.96.7:3000/javascripts/aframe-template-component.js')
-        script(src='https://172.27.96.7:3000/javascripts/set-image.js')
+        script(src='https://192.168.0.2:3000/javascripts/aframe.min.js')
+        script(src='https://192.168.0.2:3000/javascripts/aframe-animation-component.js')
+        script(src='https://192.168.0.2:3000/javascripts/aframe-event-set-component.js')
+        script(src='https://192.168.0.2:3000/javascripts/aframe-layout-component.js')
+        script(src='https://192.168.0.2:3000/javascripts/aframe-template-component.js')
+        script(src='https://192.168.0.2:3000/javascripts/set-image.js')
     body
         a-scene
             a-assets
-                //img#korean(crossorigin='anonymous', src='https://172.27.96.7:3000/images/360/korean_community.jpg')
-                //img#korean-thumb(crossorigin='anonymous', src='https://172.27.96.7:3000/images/360/korean_thumb.png')
+                //img#korean(crossorigin='anonymous', src='https://192.168.0.2:3000/images/360/korean_community.jpg')
+                //img#korean-thumb(crossorigin='anonymous', src='https://192.168.0.2:3000/images/360/korean_thumb.png')
                 for item in vrlist
                     img(id = item._id, crossorigin='anonymous', src=item.image_file)
                     img(id = item._id + "-thumb", crossorigin='anonymous', src=item.thumb_file)

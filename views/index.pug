@@ -1,16 +1,16 @@
 extends _bootstrap
 append styles
     // Custom styles for this template
-    link(href='https://172.27.96.7:3000/css/navbar-static-top.css', rel='stylesheet')
+    link(href='https://192.168.0.2:3000/css/navbar-static-top.css', rel='stylesheet')
 
 block body
     // Static navbar
     +navbar-static("Project Wantok","navbar")
-        +nav_item("https://172.27.96.7:3000","active") Home
-        +nav_item("https://172.27.96.7:3000") Tourist
-        +nav_item("https://172.27.96.7:3000/carrier") Carrier
+        +nav_item("https://192.168.0.2:3000","active") Home
+        +nav_item("https://192.168.0.2:3000") Tourist
+        +nav_item("https://192.168.0.2:3000/carrier") Carrier
         +nav_item_dropdown("#")(label="Dropdown")
-            +nav_item("https://172.27.96.7:3000/admin/villages") Admin
+            +nav_item("https://192.168.0.2:3000/admin/villages") Admin
 
     .container
         //Iteration for listing village item

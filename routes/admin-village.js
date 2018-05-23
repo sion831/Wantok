@@ -67,8 +67,8 @@ router.post('/add_item', function (req, res) {
 
     vritem.community_id = body.vrid;
     vritem.scene_name = body.SceneName;
-    vritem.image_file = 'https://172.27.96.7:3000/images/360/' + VRImage.name;
-    vritem.thumb_file = 'https://172.27.96.7:3000/images/360/' + VRThumb.name;
+    vritem.image_file = 'https://192.168.0.2:3000/images/360/' + VRImage.name;
+    vritem.thumb_file = 'https://192.168.0.2:3000/images/360/' + VRThumb.name;
     vritem.save(function (err) {
         if (err) {
             console.error(err);
