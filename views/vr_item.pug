@@ -10,6 +10,7 @@ html
         script(src='https://192.168.0.2:3000/javascripts/aframe-layout-component.js')
         script(src='https://192.168.0.2:3000/javascripts/aframe-template-component.js')
         script(src='https://192.168.0.2:3000/javascripts/set-image.js')
+        script(src='https://192.168.0.2:3000/javascripts/navigate.js')
     body
         a-scene
             a-assets
@@ -18,15 +19,19 @@ html
                 for item in vrlist
                     img(id = item._id, crossorigin='anonymous', src=item.image_file)
                     img(id = item._id + "-thumb", crossorigin='anonymous', src=item.thumb_file)
-
+                img(id = 'shop', crossorigin='anonymous', src='https://192.168.0.2:3000/images/360/thumb-city.jpg')
                 script#link(type='text/html')
                      a-entity.link(geometry='primitive: plane; height: 1; width: 1', material='shader: flat; src: ${thumb}', event-set__1='_event: mousedown; scale: 1 1 1', event-set__2='_event: mouseup; scale: 1.2 1.2 1', event-set__3='_event: mouseenter; scale: 1.2 1.2 1', event-set__4='_event: mouseleave; scale: 1 1 1', set-image='on: click; target: #image-360; src: ${src}')
+                script#navigate(type='text/html')
+                    a-entity.link(geometry='primitive: plane; height: 1; width: 1', material='shader: flat; src: ${thumb}', event-set__1='_event: mousedown; scale: 1 1 1', event-set__2='_event: mouseup; scale: 1.2 1.2 1', event-set__3='_event: mouseenter; scale: 1.2 1.2 1', event-set__4='_event: mouseleave; scale: 1 1 1', navigate='on: click; url:${url}')
             // 360-degree image.
             a-sky#image-360(radius='10', src='#'+ vrlist[0]._id)
             // Image links.
             a-entity#links(layout='type: line; margin: 1.5', position='0 -1 -4')
                 for item in vrlist
                     a-entity(template='src: #link', data-src='#'+ item._id, data-thumb='#'+ item._id +'-thumb')
+                a-entity(template='src: #navigate', data-url='https://192.168.0.2:3000/', data-thumb='#shop')
             // Camera + cursor.
             a-entity(camera='', look-controls='')
                 a-cursor#cursor(animation__click='property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150', animation__fusing='property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500', event-set__1='_event: mouseenter; color: springgreen', event-set__2='_event: mouseleave; color: black', fuse='true', raycaster='objects: .link')
+
