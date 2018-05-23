@@ -22,7 +22,7 @@ html
                 script#link(type='text/html')
                      a-entity.link(geometry='primitive: plane; height: 1; width: 1', material='shader: flat; src: ${thumb}', event-set__1='_event: mousedown; scale: 1 1 1', event-set__2='_event: mouseup; scale: 1.2 1.2 1', event-set__3='_event: mouseenter; scale: 1.2 1.2 1', event-set__4='_event: mouseleave; scale: 1 1 1', set-image='on: click; target: #image-360; src: ${src}')
             // 360-degree image.
-            a-sky#image-360(radius='10', src='#jungle')
+            a-sky#image-360(radius='10', src='#'+ vrlist[0]._id)
             // Image links.
             a-entity#links(layout='type: line; margin: 1.5', position='0 -1 -4')
                 for item in vrlist

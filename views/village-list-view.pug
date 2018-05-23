@@ -27,4 +27,5 @@ block body
                 p= item.name
                 p= item.summary_text
                 a.btn.btn-primary(href='/admin/villages/add_vr/' + item._id, role='button') Add VR »
+                a.btn(class="btn-info",href='/admin/villages/brand_making/' + item._id, role='button') Brand Making »
                 a.btn(class="btn-danger",role="button",onclick="deleteMe('"+ item._id +"');") Delete

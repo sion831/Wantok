@@ -1,0 +1,85 @@
+extends _bootstrap
+
+append styles
+    // Custom styles for this template
+    link(href='https://192.168.0.2:3000/css/navbar-static-top.css', rel='stylesheet')
+block  body
+    +navbar-static("Project Wantok","navbar")
+        +nav_item("https://192.168.0.2:3000","active") Home
+        +nav_item("https://192.168.0.2:3000") Tourist
+        +nav_item("https://192.168.0.2:3000/carrier") Carrier
+        +nav_item_dropdown("#")(label="Dropdown")
+            +nav_item("https://192.168.0.2:3000/admin/villages") Admin
+    .container
+        script.
+            function updateMe() {
+                var url = '/admin/villages/update_brand';
+                var form = document.getElementById("frm1");
+
+                var i;
+                for (i = 0; i < form.length; i++) {
+                    console.log(form.elements[i].value);
+                }
+                /*
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", url, true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(JSON.stringify({
+                    value: value
+                }));*/
+            }
+        // Main component for a primary marketing message or call to action
+        //form(action='#', method='get', onsubmit='return false;')
+        //form(id= "frm1", action='/admin/villages/update_brand/'+ community_id, method='post', enctype='multipart/form-data', onsubmit='return false;')
+        //form#uploadForm(action='/admin/villages/update_brand', method='post', enctype='multipart/form-data')
+        table.noborder(style='width:100%')
+            tbody
+                tr
+                    td
+                        strong e-Commerce Site Link:
+                tr
+                    td
+                        textarea#text-input(placeholder='Enter your text to be put into the QR Code', style='width:100%; max-width:30em; height:5em; font-family:inherit', oninput='redrawQrCode();', name="input")
+                tr
+                    td
+                        strong Default QR Code:
+                tr
+                    td
+                        center
+                            canvas#qrcode-canvas(style='padding:1em; background-color:#E8E8E8')
+                //tr
+                //   td
+                //        +input("file","brandFile","Your Brand Image File","Brand Image","brandFile")
+                tr
+                    td
+                        video#player(controls='', autoplay='', width='320', height='320')
+                tr
+                    td
+                        button#capture Capture
+                tr
+                    td
+                        canvas#snapshot(width='320', height='320', name = 'canvas')
+                tr
+                    td
+                        input(type='submit', name="Make Your Brand")
+
+
+        script(type='application/javascript', src='/javascripts/qrcodegen.js')
+        script(type='application/javascript', src='/javascripts/qrcodegen-live.js')
+        script.
+            var player = document.getElementById('player');
+            var snapshotCanvas = document.getElementById('snapshot');
+            var captureButton = document.getElementById('capture');
+            var text = document.getElementById('text-input');
+            var handleSuccess = function (stream) {
+                // Attach the video stream to the video element and autoplay.
+                player.srcObject = stream;
+            };
+            captureButton.addEventListener('click', function () {
+                var context = snapshot.getContext('2d');
+                // Draw the video frame to the canvas.
+                context.drawImage(player, 0, 0, snapshotCanvas.width, snapshotCanvas.height);
+                $.post('/admin/villages/update_brand/', {id:'#{community_id}', img:snapshotCanvas.toDataURL('image/jpeg', 0.7), qr_text:text.value});
+            });
+            navigator.mediaDevices.getUserMedia({video: true})
+                .then(handleSuccess);
