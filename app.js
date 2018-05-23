@@ -24,6 +24,7 @@ var vrRouter = require('./routes/vr');
 var crRouter = require('./routes/carrier');
 var viRouter = require('./routes/village');
 var cmRouter = require('./routes/cam');
+var shopRouter = require('./routes/shopping');
 
 
 // Admin route
@@ -68,16 +69,17 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/trackers', trRouter);
-app.use('/qrcode', qrRouter);
+//app.use('/trackers', trRouter);
+//app.use('/qrcode', qrRouter);
 app.use('/vr', vrRouter);
-app.use('/carrier', crRouter);
+//app.use('/carrier', crRouter);
 app.use('/villages', viRouter); // Villages router
 app.use('/admin/villages', adminViRouter);// Admin village router
-app.use('/cam', cmRouter);
+app.use('/shopping', shopRouter);// Admin village router
+//app.use('/cam', cmRouter);
 
-var testRouter = require('./routes/uploadImg');
-app.use('/test', testRouter);
+//var testRouter = require('./routes/uploadImg');
+//app.use('/test', testRouter);
 
 
 
