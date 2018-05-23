@@ -50,11 +50,6 @@ app.param('trackid', function (request, response, next, trackid) {
 });
 */
 
-app.param('vid', function (request, response, next, vid) {
-    request.vid = vid;
-    return next();
-});
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -72,7 +67,7 @@ app.use('/', indexRouter);
 //app.use('/trackers', trRouter);
 //app.use('/qrcode', qrRouter);
 app.use('/vr', vrRouter);
-//app.use('/carrier', crRouter);
+app.use('/carrier', crRouter);
 app.use('/villages', viRouter); // Villages router
 app.use('/admin/villages', adminViRouter);// Admin village router
 app.use('/shopping', shopRouter);// Admin village router
