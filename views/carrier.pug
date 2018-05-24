@@ -1,15 +1,15 @@
 extends _bootstrap
 append styles
     // Custom styles for this template
-    link(href='../css/navbar-static-top.css', rel='stylesheet')
-    script(type='text/javascript', src='javascripts/instascan.min.js')
+    link(href='/css/navbar-static-top.css', rel='stylesheet')
+    script(type='text/javascript', src='/javascripts/instascan.min.js')
 block body
     +navbar-static("Project Wantok","navbar")
-        +nav_item("https://192.168.0.2:3000","active") Home
-        +nav_item("https://192.168.0.2:3000") Tourist
-        +nav_item("https://192.168.0.2:3000/carrier") Carrier
+        +nav_item("/","active") Home
+        +nav_item("/") Tourist
+        +nav_item("/carrier") Carrier
         +nav_item_dropdown("#")(label="Dropdown")
-            +nav_item("https://192.168.0.2:3000/admin/villages") Admin
+            +nav_item("/admin/villages") Admin
     .container
         center
             video#preview

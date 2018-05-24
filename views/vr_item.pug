@@ -5,22 +5,22 @@ html
         meta(charset='utf-8')
         meta(name='description', content='Virtual Tours')
         //script(src='https://aframe.io/releases/0.8.0/aframe.min.js')
-        script(src='https://192.168.0.2:3000/javascripts/aframe.min.js')
-        script(src='https://192.168.0.2:3000/javascripts/aframe-animation-component.js')
-        script(src='https://192.168.0.2:3000/javascripts/aframe-event-set-component.js')
-        script(src='https://192.168.0.2:3000/javascripts/aframe-layout-component.js')
-        script(src='https://192.168.0.2:3000/javascripts/aframe-template-component.js')
-        script(src='https://192.168.0.2:3000/javascripts/set-image.js')
-        script(src='https://192.168.0.2:3000/javascripts/navigate.js')
+        script(src='/javascripts/aframe.min.js')
+        script(src='/javascripts/aframe-animation-component.js')
+        script(src='/javascripts/aframe-event-set-component.js')
+        script(src='/javascripts/aframe-layout-component.js')
+        script(src='/javascripts/aframe-template-component.js')
+        script(src='/javascripts/set-image.js')
+        script(src='/javascripts/navigate.js')
     body
         a-scene
             a-assets
-                img#default(crossorigin='anonymous', src='https://192.168.0.2:3000/images/360/jungle_community.png')
-                //img#korean-thumb(crossorigin='anonymous', src='https://192.168.0.2:3000/images/360/korean_thumb.png')
+                img#default(crossorigin='anonymous', src='/images/360/jungle_community.png')
+                //img#korean-thumb(crossorigin='anonymous', src='/images/360/korean_thumb.png')
                 for item in vrlist
                     img(id = item._id, crossorigin='anonymous', src=item.image_file)
                     img(id = item._id + "-thumb", crossorigin='anonymous', src=item.thumb_file)
-                img(id = 'shop', crossorigin='anonymous', src='https://192.168.0.2:3000/images/360/shop.png')
+                img(id = 'shop', crossorigin='anonymous', src='/images/360/shop.png')
                 script#link(type='text/html')
                      a-entity.link(geometry='primitive: plane; height: 1; width: 1', material='shader: flat; src: ${thumb}', event-set__1='_event: mousedown; scale: 1 1 1', event-set__2='_event: mouseup; scale: 1.2 1.2 1', event-set__3='_event: mouseenter; scale: 1.2 1.2 1', event-set__4='_event: mouseleave; scale: 1 1 1', set-image='on: click; target: #image-360; src: ${src}')
                 script#navigate(type='text/html')
@@ -35,7 +35,7 @@ html
             a-entity#links(layout='type: line; margin: 1.5', position='0 -1 -4')
                 for item in vrlist
                     a-entity(template='src: #link', data-src='#'+ item._id, data-thumb='#'+ item._id +'-thumb')
-                a-entity(template='src: #navigate', data-url='https://192.168.0.2:3000/shopping', data-thumb='#shop')
+                a-entity(template='src: #navigate', data-url='/shopping', data-thumb='#shop')
             // Camera + cursor.
             a-entity(camera='', look-controls='')
                 a-cursor#cursor(animation__click='property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150', animation__fusing='property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500', event-set__1='_event: mouseenter; color: springgreen', event-set__2='_event: mouseleave; color: black', fuse='true', raycaster='objects: .link')

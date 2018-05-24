@@ -8,7 +8,7 @@ router.get('/', function (req, res) {
         if (err) {
             return res.status(500).send({error: 'database failure'});
         }
-        console.log('get vill')
+        //console.log('get vill')
         res.render('index', {villageList: villages, title: 'Express'});
     });
 });

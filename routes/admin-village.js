@@ -47,7 +47,7 @@ router.post('/add_item', function (req, res) {
 
     // VR Image
     let VRImage = req.files.VRImage;
-    let VRImagePath = '../public/images/360/'+ VRImage.name;
+    let VRImagePath = '/images/360/'+ VRImage.name;
 
     // Use the mv() method to place the file somewhere on your server
     VRImage.mv(VRImagePath, function(err) {
@@ -59,7 +59,7 @@ router.post('/add_item', function (req, res) {
 
     // VRThumbnail
     let VRThumb = req.files.VRThumb;
-    let VRThumbPath = '../public/images/360/'+ VRThumb.name;
+    let VRThumbPath = '/images/360/'+ VRThumb.name;
     // Use the mv() method to place the file somewhere on your server
     VRThumb.mv(VRThumbPath, function(err) {
         if (err)
@@ -70,8 +70,8 @@ router.post('/add_item', function (req, res) {
 
     vritem.community_id = body.vrid;
     vritem.scene_name = body.SceneName;
-    vritem.image_file = 'https://192.168.0.2:3000/images/360/' + VRImage.name;
-    vritem.thumb_file = 'https://192.168.0.2:3000/images/360/' + VRThumb.name;
+    vritem.image_file = '/images/360/' + VRImage.name;
+    vritem.thumb_file = '/images/360/' + VRThumb.name;
     vritem.save(function (err) {
         if (err) {
             console.error(err);
@@ -111,6 +111,7 @@ router.delete('/:id', function (req, res) {
 
         res.end();
     })
+    res.redirect('/admin/villages/');
 });
 
 router.get('/add_vr/:id', function (req, res) {
@@ -144,7 +145,7 @@ router.post('/update_brand/', function (req, res) {
     Village.findOne({_id: req.body.id}, function (err, village) {
         if (err) return res.status(500).json({ error: err });
         if (!village) return res.status(404).json({ error: 'village not found' });
-        village.brand_image = '../images/brands/'+ req.body.id + '.jpg';
+        village.brand_image = '/images/brands/'+ req.body.id + '.jpg';
 
         village.save(function(err){
             if(err) res.status(500).json({error: 'failed to update'});

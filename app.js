@@ -18,12 +18,12 @@ db.once('open', function () {
 mongoose.connect('mongodb://localhost/wantok');
 
 var indexRouter = require('./routes/index');
-var trRouter = require('./routes/trackers');
-var qrRouter = require('./routes/qrcode');
+//var trRouter = require('./routes/trackers');
+//var qrRouter = require('./routes/qrcode');
 var vrRouter = require('./routes/vr');
 var crRouter = require('./routes/carrier');
-var viRouter = require('./routes/village');
-var cmRouter = require('./routes/cam');
+var viRouter = require('./routes/villages');
+//var cmRouter = require('./routes/cam');
 var shopRouter = require('./routes/shopping');
 
 
