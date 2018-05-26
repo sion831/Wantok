@@ -47,7 +47,7 @@ router.post('/add_item', function (req, res) {
 
     // VR Image
     let VRImage = req.files.VRImage;
-    let VRImagePath = '/images/360/'+ VRImage.name;
+    let VRImagePath = '../public/images/360/'+ VRImage.name;
 
     // Use the mv() method to place the file somewhere on your server
     VRImage.mv(VRImagePath, function(err) {
@@ -59,7 +59,7 @@ router.post('/add_item', function (req, res) {
 
     // VRThumbnail
     let VRThumb = req.files.VRThumb;
-    let VRThumbPath = '/images/360/'+ VRThumb.name;
+    let VRThumbPath = '../public/images/360/'+ VRThumb.name;
     // Use the mv() method to place the file somewhere on your server
     VRThumb.mv(VRThumbPath, function(err) {
         if (err)
@@ -96,7 +96,7 @@ router.delete('/:id', function (req, res) {
 
         console.log('check');
 
-        res.end();
+        //res.end();
     })
 
     VRItem.remove({ community_id:req.params.id }, function (err, output) {
@@ -109,7 +109,7 @@ router.delete('/:id', function (req, res) {
 
         console.log('check');
 
-        res.end();
+        //res.end();
     })
     res.redirect('/admin/villages/');
 });
