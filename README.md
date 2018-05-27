@@ -1,12 +1,31 @@
 # Project Wantok
 
-QR Code Generator - Nayuki
+This project is a project for APEC 2018 App Challenges from the delegate of Rep. of Korea Economy. This project is a total program suite for a bilum maker to enhance their brand identity. 
+In this project, an administrator may manage several brands for Bilum makers. This project contains following programs.
 
-PUG-Bootstrap
+* QR Code Generator with Custom Brand Image
+* QR Code Scanner
+* Virtual Reality Tour using 360 Image
+* Contents Management System for Virtual Reality Tour
 
-Instascan
+## Prerequisite
+This projects runs under HTTPS. Therefore, one who wants to execute this project should have vaild certificate to run HTTPS service. 
+To setup and run the project on the localhost environment, refer the following materials. 
+* https://medium.freecodecamp.org/how-to-get-https-working-on-your-local-development-environment-in-5-minutes-7af615770eec
 
-aframe
+After generating the `server.crt` and `server.key` files, put them into `[Project DIR]/build/cert`.
+
+## To run this project
+
+First run `$ npm install` to install node dependencies,
+
+then run `$ brew install mongodb` to install MongoDB, (For macOS)
+
+and run `$ mkdir -p [PROJECT DIR]/data/db` to create dir for db file,
+
+and run `$ mongod --dbpath [PROJECT DIR]/data/db` to start a MongoDB instance,
+
+finally `$ DEBUG=express:* node ./bin/www` to run server.
 
 ## Project structure
 
@@ -20,17 +39,18 @@ routes - Serving Expressjs route files
 
 views - Serving Pug template files
 
-## To run this project
-
-First run `$ npm install` to install node dependencies,
-
-then run `$ brew install mongodb` to install MongoDB,
-
-and run `$ mkdir -p [PROJECT DIR]/data/db` to create dir for db file,
-
-and run `$ mongod --dbpath [PROJECT DIR]/data/db` to start a MongoDB instance,
-
-finally `$ DEBUG=express:* node ./bin/www` to run server.
+## Library Reference
+- QR Code Generator - Nayuki
+- jQuery
+- Mongoose
+- Bootstrap
+- PUG-Bootstrap
+- Instascan
+- aframe
+- python-shell
+- ExpressJS
+- body-parser
+- express-fileupload
 
 ## Route structure
 
